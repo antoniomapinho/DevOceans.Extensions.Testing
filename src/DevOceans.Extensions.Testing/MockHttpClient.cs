@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace DevOceans.Extensions.Testing
 {
     public class MockHttpClient : HttpClient
     {
-        private readonly MockHttpMessageHandler _messageHandler;
-
         private MockHttpClient(MockHttpMessageHandler messageHandler) : base(messageHandler)
         {
-            _messageHandler = messageHandler;
+            MockHttpMessageHandler = messageHandler;
         }
 
-        public MockHttpMessageHandler MockHttpMessageHandler => _messageHandler;
+        public static MockHttpClient Create()
+        {
+            return new MockHttpClient(new MockHttpMessageHandler());
+        }
+
+        public MockHttpMessageHandler MockHttpMessageHandler { get; }
     }
 }

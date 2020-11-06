@@ -96,6 +96,6 @@ namespace DevOceans.Extensions.Testing
             return Task.FromResult<HttpResponseMessage>(null);
         }
 
-        public IEnumerable<HttpRequestMessage> Requests => _requests;
+        public ICollection<HttpRequestMessage> Requests => _requests;
     }
 }
