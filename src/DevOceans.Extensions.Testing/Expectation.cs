@@ -1,5 +1,8 @@
 using System;
+using System.Net;
 using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace DevOceans.Extensions.Testing
 {
@@ -36,6 +39,16 @@ namespace DevOceans.Extensions.Testing
             ResponseExpression = request => responseExpression;
 
             return this;
+        }
+
+        public Expectation Returns<T>(HttpStatusCode statusCode, T payload, string mediaType)
+        {
+            return Returns(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(payload),
+                    Encoding.UTF8,
+                    mediaType)
+            });
         }
 
         public void Verifiable()
